@@ -1,0 +1,187 @@
+/* 全局样式重置 & 基础配置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+body {
+    background-color: #f8f9fa; /* 柔和的背景色，避免纯白刺眼 */
+    color: #333; /* 正文深灰色，提升阅读体验 */
+    min-height: 100vh; /* 页面铺满视口 */
+}
+/* 外层容器 */
+.box {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 顶部对齐，避免内容居中挤压 */
+    /* padding: 20px 10px; */
+}
+/* 核心内容容器 */
+.center {
+    /* display: flex;
+    flex-direction: row; */
+    width: 100%;
+    max-width: 900px; /* 适度加宽，提升阅读宽度 */
+    background-color: #fff; /* 白色卡片底，突出内容 */
+    border-radius: 12px; /* 圆角增加柔和感 */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); /* 轻微阴影，增加层次感 */
+    overflow: hidden; /* 裁剪圆角外的内容 */
+}
+/* 头部区域 */
+.head {
+    /* position: fixed; */
+    width: 100%;
+    max-width: 900px; /* 适度加宽，提升阅读宽度 */
+    padding: 16px 24px;
+    background-color: #e8f4f8; /* 清新的浅蓝底色，替代原浅黄色 */
+    border-bottom: 1px solid #e3f2fd;
+}
+/* 切换按钮 */
+.head button {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 0;
+    border: none;
+    border-radius: 8px; /* 按钮圆角 */
+    background-color: #4299e1; /* 主色调：柔和蓝 */
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease; /* 过渡动画 */
+    font-weight: 500;
+}
+.head button:hover {
+    background-color: #3182ce; /* hover加深 */
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.3);
+}
+.head button:active {
+    background-color: #2b6cb0; /* 点击更深 */
+    /* transform: scale(0.98); 轻微缩放，模拟按压感 */
+}
+/* 文件列表容器 */
+.filelist {
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    padding: 16px 24px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #eee;
+}
+/* 文件列表项 */
+.file-item {
+    margin: 6px 0;
+    padding: 10px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #4a5568;
+}
+.file-item:hover {
+    color: #2d3748;
+    background-color: #f0f8fb;
+    border-color: #bee3f8;
+    transform: translateY(-1px); /* 轻微上浮，增加交互感 */
+}
+.file-item:active {
+    color: #2b6cb0;
+    background-color: #e8f4f8;
+    transform: translateY(0);
+}
+/* 选中的文件项（可选，需JS配合） */
+.file-item.active {
+    background-color: #e8f4f8;
+    border-color: #4299e1;
+    color: #2b6cb0; 
+    font-weight: 500;
+}
+/* Markdown 内容区域 */
+.markdown-content {
+    max-height: 80vh; /* 限制最大高度*/
+    overflow-y: auto; /* 如果超出最大高度就显示垂直滑动条*/
+    padding: 32px 24px;
+    line-height: 1.8; /* 加大行高，提升阅读体验 */
+    font-size: 16px;
+}
+/* Markdown 内容样式细化 */
+.markdown-content h1 {
+    font-size: 2rem;
+    color: #2d3748;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 12px;
+    margin-top: 0;
+}
+.markdown-content h2 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 8px;
+}
+.markdown-content h3 {
+    font-size: 1.25rem;
+    color: #2d3748;
+}
+.markdown-content p {
+    margin-bottom: 20px;
+    color: #4a5568;
+}
+.markdown-content pre {
+    background-color: #f7fafc;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    margin: 20px 0;
+}
+.markdown-content code {
+    background-color: #f7fafc;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.95em;
+    color: #e53e3e;
+}
+.markdown-content a {
+    color: #4299e1;
+    text-decoration: none;
+    border-bottom: 1px dotted #4299e1;
+}
+.markdown-content a:hover {
+    color: #2b6cb0;
+    border-bottom: 1px solid #2b6cb0;
+}
+.markdown-content img{
+    width: 100%; 
+    height: 600px;
+}
+/* 错误提示样式 */
+.error {
+    color: #e53e3e;
+    padding: 16px;
+    background-color: #fef7fb;
+    border-radius: 8px;
+    border-left: 4px solid #e53e3e;
+    margin: 20px 0;
+}
+/* 响应式适配（移动端优化） */
+@media (max-width: 768px) {
+    .center {
+        max-width: 100%;
+        margin: 10px;
+        border-radius: 8px;
+    }
+    .head {
+        padding: 12px 16px;
+    }
+    .filelist {
+        padding: 12px 16px;
+    }
+    .markdown-content {
+        padding: 20px 16px;
+        font-size: 15px;
+    }
+    .markdown-content h1 {
+        font-size: 1.75rem;
+    }
+}
