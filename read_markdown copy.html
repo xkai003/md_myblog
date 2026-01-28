@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>md_blog</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* 新增文件列表样式 */
+        .file-list {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .file-item {
+            margin: 8px 0;
+            padding: 8px 12px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .file-item:hover {
+            background-color: #f5f5f5;
+        }
+        .markdown-content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        h1, h2, h3 {
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+        p {
+            margin-bottom: 16px;
+        }
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f6f8fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 文件列表区域 -->
+    <div class="file-list">
+        <h3>Markdown 文件列表</h3>
+        <!-- <div id="file-list-container"></div> -->
+        <a href="#" id="file-list-container"></a>
+    </div>
+    
+    <!-- Markdown 内容展示区域 -->
+    <div class="markdown-content" id="markdown-container"></div>
+
+    <script>
+        // 1. 预定义 md 文件夹下的所有 Markdown 文件（手动维护）
+        const mdFiles = [
+            'notes.md',
+            'work.md'
+            // 新增文件时，在这里添加即可
+        ];
+
+        // 2. 页面加载时渲染文件列表
+        window.onload = function() {
+            renderFileList();
+        };
+
+        // 渲染文件列表
+        function renderFileList() {
+            const listContainer = document.getElementById('file-list-container');
+            if (mdFiles.length === 0) {
+                listContainer.innerHTML = '<p>暂无 Markdown 文件</p>';
+                return;
+            }
+
+            // 为每个文件生成可点击的条目
+            const fileItems = mdFiles.map(file => 
+                `<div class="file-item" onclick="loadMarkdownFile('${file}')">${file}</div>`
+            ).join('');
+            
+            listContainer.innerHTML = fileItems;
+        }
+
+        // 加载并渲染指定的 Markdown 文件
+        async function loadMarkdownFile(filename) {
+            const container = document.getElementById('markdown-container');
+            try {
+                // 拼接文件路径（md 文件夹下）
+                const response = await fetch(`./md/${filename}`);
+                
+                if (!response.ok) {
+                    throw new Error(`文件加载失败: ${response.status}`);
+                }
+
+                const markdownText = await response.text();
+                const htmlContent = marked.parse(markdownText);
+                container.innerHTML = htmlContent;
+
+            } catch (error) {
+                container.innerHTML = `<p class="error">加载 ${filename} 失败: ${error.message}</p>`;
+                console.error('加载错误:', error);
+            }
+        }
+    </script>
+</body>
+</html>
