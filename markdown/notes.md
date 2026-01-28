@@ -123,8 +123,8 @@ opacity: 0 →透明度为0<br>
 <hr>
 
 ### CSS的盒子垂直居中
-<!-- <img src="../markdown/notesimg/cssdhzczjz.png" alt="图片alt" title="图片title" style="width: 100%; height: 600px"> -->
-![这是图片](../markdown/notesimg/cssdhzczjz.png "Magic Gardens")
+<!-- <img src="../image/notes/cssdhzczjz.png" alt="图片alt" title="图片title" style="width: 100%; height: 600px"> -->
+![这是图片](../image/notes/cssdhzczjz.png "Magic Gardens")
 <br>
 
 ```
