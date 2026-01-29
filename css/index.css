@@ -147,19 +147,25 @@ body.night-mode {
     display: block;
     line-height: 40px;
     font-size: 20px;
-    text-align: center;
+    /* text-align: center; */
     text-decoration: none;
     color: black;
     /* background-color: #f3e0e0; */
     /* padding: 0 10px; 新增：内边距 */
 }
 .file-item{
+    font-size: 23px;
+    padding-left: 10px;
+    /* background-color: #f3e0e0; */
     border-bottom: 1px solid #eeeded;
 }
 .file-item:hover {
     color:red;
     border-bottom: 1px solid #e9e9e9;
     /* background-color: #cff3f8; */
+}
+.file-item:hover .icon{
+    fill:#f80606
 }
 /* markdown-content */
 .markdown-content {
