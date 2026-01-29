@@ -8,20 +8,27 @@
     <link rel="stylesheet" href="./css/markdown.css">
     <!-- js -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="./js/index.js"></script>
 </head>
 <body>
-    <div class="box">
-        <div class="center">
-            <div class="head">
-                <button id="fileListBtn" onclick="showlist()">文件列表</button>
-                <div class="filelist" id="filelist">
-                    <div id="file-list-container"></div> <!-- 移除多余的a标签，改为div -->
+    <div class="box" >
+        <div class="head">
+            <button onclick="openwindow()" class="openwindowbtn">☰</button>
+            <span>Markdown 笔记</span>
+        </div>
+        <div class="nav" id="nav-container">
+            <div class="title">
+                <span>文件列表</span>
+                <div class="inputbox">
+                    <input type="text" placeholder="请输入你需要查看的文档">
+                    <button>x</button>
                 </div>
             </div>
-            <!-- Markdown 内容展示区域 -->
-            <div class="markdown-content" id="markdown-container"></div>
+            <div class="list file-list">
+                <a href="#" id="file-list-container"></a>
+            </div>
         </div>
+        <div class="markdown-content" id="markdown-container"></div>
     </div>
+    <script src="./js/index.js"></script>
 </body>
 </html>

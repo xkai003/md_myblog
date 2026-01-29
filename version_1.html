@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN"> <!-- 改为中文更贴合场景 -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown 笔记</title>
+    <!-- css -->
+    <link rel="stylesheet" href="./css/version_1.css">
+    <!-- js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="./js/version_1.js"></script>
+</head>
+<body>
+    <div class="box">
+        <div class="center">
+            <div class="head">
+                <button id="fileListBtn" onclick="showlist()">文件列表</button>
+                <div class="filelist" id="filelist">
+                    <div id="file-list-container"></div> <!-- 移除多余的a标签，改为div -->
+                </div>
+            </div>
+            <!-- Markdown 内容展示区域 -->
+            <div class="markdown-content" id="markdown-container"></div>
+        </div>
+    </div>
+</body>
+</html>
