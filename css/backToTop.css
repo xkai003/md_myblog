@@ -1,15 +1,17 @@
 /* 回到顶部按钮样式 */
 #backToTop {
+    padding: 5px;
     position: fixed;
-    bottom: 100px;
+    bottom: 30px;
     right: 30px;
     display: none; /* 默认隐藏 */
-    color: white;
-    background-color: rgba(0, 0, 0, 0);
+    fill: #fff;
+    background-color: rgb(122, 234, 253);
     border: none;
     border-radius: 25%;
     cursor: pointer;
 }
 #backToTop:hover {
+    fill: #fa1a12;
     background-color: #c8f2f8;
 }
