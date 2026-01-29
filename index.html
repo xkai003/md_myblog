@@ -11,9 +11,17 @@
 </head>
 <body>
     <div class="box" >
-        <div class="head">
-            <button onclick="openwindow()" class="openwindowbtn">☰</button>
-            <span>Markdown 笔记</span>
+        <div class="head" id="headstatus">
+            <div class="left">
+                <button onclick="openwindow()" class="openwindowbtn">☰</button>
+                <span>Markdown 笔记</span>
+            </div>
+            <!-- 白天/夜晚 模式切换 -->
+            <div class="right">
+                <button class="theme-toggle" id="themeToggleBtn">
+                    <span id="themeToggleBtnspan">1</span>
+                </button>
+            </div>
         </div>
         <div class="nav" id="nav-container">
             <div class="title">
