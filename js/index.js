@@ -91,8 +91,8 @@ window.addEventListener('resize', function() {
 // ============================阅读Markdown 文件============================
 // 1. 预定义 md 文件夹下的所有 Markdown 文件（手动维护）
 const mdFiles = [
-    'notes.md',
-    'work.md'
+    'codenotes.md',
+    'operationnotes.md'
     // 新增文件时，在这里添加即可
 ];
 

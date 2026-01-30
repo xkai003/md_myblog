@@ -122,81 +122,6 @@ opacity: 0 →透明度为0<br>
 2、?autoplay=0：进入页面不会自动播放）
 <hr>
 
-### CSS的盒子垂直居中
-<!-- <img src="../image/notes/cssdhzczjz.png" alt="图片alt" title="图片title" style="width: 100%; height: 600px"> -->
-![这是图片](../image/notes/cssdhzczjz.png "Magic Gardens")
-<br>
-
-```
-<div class="window" v-show="isshow">
-       <div class="window-center">1</div>
-</div>
-```
-方法一：position:fixed; + margin
-```
-.body .center .window{
-  position:fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-}
-.body .center .window .window-center{
-  margin: 300px auto;
-  width: 500px;
-  height: 300px;
-  background-color: #fff;
-}
-```
-方法二：position:fixed; + display:flex
-```
-.body .center .window{
-    position:fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.body .center .window .window-center{
-    width: 500px;
-    height: 300px;
-    background-color: #fff;
-}
-```
-<hr>
-
-### flex 布局
-```
-<div class="box">
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-</div>
-```
-```
-.box{
-    display: flex;                                    →flex布局
-    justify-content: center;                          →水平居中
-    align-items: center;                              →垂直居中
-    横向排列
-    flex-direction: row;                              →（左->右)
-    flex-direction:row-reverse;                       →（右->左)
-    纵向排列
-    flex-direction:column;                            →（下->上)
-    flex-direction:column-reverse;                    →（下->上)
-    justify-content: space-between;                   →让盒子中各元素平分空间
-}
-```
-<hr>
-
 ### 输入框
 ```
 输入框：<input type="text" placeholder="请输入时间">
@@ -215,3 +140,6 @@ opacity: 0 →透明度为0<br>
 提交框：<input type="submit">
 选择图片文件框：<input type="file" placeholder="更改头像">
 ```
+<hr>
+
+
