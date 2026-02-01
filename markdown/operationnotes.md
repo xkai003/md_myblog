@@ -276,6 +276,80 @@ document.getElementById("login").onclick = function () {
 ```
 <hr>
 
+### 实操笔记 ——获取表单元素并打印
+
+```
+<form id="A">
+    <textarea id="xm"></textarea>
+    <br>
+    <button type="submit" id="submit">确定</button>
+</form>
+<div id="B"></div>
+```
+<br>
+
+```
+document.getElementById('A').addEventListener('submit', function(event) {
+    event.preventDefault();
+    // 获取表单输入的值
+    var name = document.getElementById('xm').value;
+    //点击按钮之后清空输入框
+    document.getElementById('xm').value= ' ';
+    // 插入新的内容之前清空旧内容
+    document.getElementById('B').innerHTML = ' ';
+    // 将内容插入到页面指定区域
+    document.getElementById("B").textContent = name;
+});
+```
+<span style="color: red;">代码解析</span><br>
+document.getElementById('A')<br>
+获取页面中 id="A" 的表单元素，当用户点击提交按钮时，表单会提交。<br>
+addEventListener('submit', function(event) { ... })<br>
+为表单添加一个事件监听器，当用户点击id为submit按钮时，会触发 submit 事件，然后执行回调函数中的代码。<br>
+event.preventDefault( )<br>
+这是事件对象 event 的一个方法，调用它会阻止事件的默认行为。对于 submit 事件，默认行为是提交表单并刷新页面。通过调用event.preventDefault( )阻止表单的默认提交行为，从而在提交表单之前做一些自定义操作，比如验证表单内容、发送 AJAX 请求等，而不刷新页面。
+<hr>
+
+### 实操笔记 ——获取表单元素并打印(简洁版)
+```
+<body>
+    <input type="text" name="" id="inp">
+    <button id="add">dj</button>
+
+    <script>
+        document.getElementById("add").onclick = function(){
+            var a = document.getElementById("inp").value
+            console.log(a)
+        }
+    </script>
+</body>
+```
+<hr>
+
+### 实操笔记——盒子高度铺满整个页面
+
+```
+<div>
+    <img src="../img/1.jpg" alt="">
+</div>
+```
+<br>
+
+```
+div{
+    /* 让元素 覆盖整个屏幕 */
+    position: fixed;
+    top: 0;/* 紧贴顶部，不留空隙 */
+    width: 100%;
+    height: 100vh;/* 高度铺满整个视口 */
+}
+div img{
+    width: 300px;
+    height: 100%;
+}
+```
+<hr>
+
 ### 实操笔记——在网页上写一个可以复制的文本框
 ![这是图片](../image/operationnotes/copytext.png "Magic Gardens")
 ```

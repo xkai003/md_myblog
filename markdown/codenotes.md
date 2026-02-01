@@ -19,6 +19,31 @@ overline 上划线<br><br>
 <br>)<br>
 <hr>
 
+### 列表标签
+```
+无序列表：<ol></ol>
+有序列表：<ul> <li></li> </ul>
+定义列表：<dl>、<dt>、<dd>
+```
+<hr>
+list-style: none; →去掉ul标签的圆点<br>
+（disc实心原点，默认、square实心方点、circle空心圆。）<br>
+去掉ul标签的圆点和它默认的缩进
+
+```
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+```
+让各li标签左浮动
+```
+ul li{
+    float: left;
+}
+```
+
 ### 字体标签
 ```
 font
@@ -142,4 +167,59 @@ opacity: 0 →透明度为0<br>
 ```
 <hr>
 
+### 动画
+```
+<div class=”box”></div>
+```
+<br>
+
+```
+.box{
+    width: 100px;
+    height: 100px;
+    background-color: rgb(137, 204, 230);
+    transition: transform 3s linear 0s;
+}
+.box:hover{
+    transform: rotate(45deg);
+}
+```
+<br>
+
+```
+transition: transform 3s linear 0s; →过渡
+（transition: 让哪些属性进行过度 过渡的持续时间 运动曲线 延迟时间;）
+transform: 
+translate(-50%, -50%);（水平位移, 垂直位移）→位移
+rotate(45deg);（顺时针旋转45度，负为逆）→平面旋转
+rotateX(360deg);（顺时针旋转360度，负为逆）→沿X轴旋转
+rotateY(360deg);（顺时针旋转360度，负为逆）→沿Y轴旋转
+translateZ(360px);（顺时针旋转360度，负为逆）→沿Z轴旋转
+```
+<hr>
+
+### 鼠标停留时图片缓慢放大效果
+```
+<div class="zoom-img">
+    <img src="./tp.png" alt="">
+</div>
+```
+<br>
+
+```
+.zoom-img{
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+}
+.zoom-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.zoom-img:hover img{
+    transform: scale(1.2);
+}
+```
 
