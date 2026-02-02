@@ -354,13 +354,13 @@ div img{
 ![这是图片](../image/operationnotes/copytext.png "Magic Gardens")
 ```
 <div class="Board">
-       <div class="BoardHead">
-              <!-- 复制id为txteleven的内容 -->
-              <button onclick="copyToClipboard('txteleven')">copy</button>
-      </div>
-      <div class="BoardText">
-              <span id="txteleven">node index.js</span>
-       </div>
+    <div class="BoardHead">
+        <!-- 复制id为txteleven的内容 -->
+        <button onclick="copyToClipboard('txteleven')">copy</button>
+    </div>
+    <div class="BoardText">
+        <span id="txteleven">node index.js</span>
+    </div>
 </div>
 ```
 <br>
@@ -426,11 +426,11 @@ div img{
     max-height: 300px;/* 最大高度 */
     overflow-x: auto;/* 水平滚动条 */
     overflow-y: auto;/* 垂直滚动条 */
-  /* 为了更好的视觉效果，可以加上一些内边距 */
-  padding: 8px 12px;
-  /* 为了美观，可以给容器添加背景色和圆角 */
-  background-color: #f0f2f5;
-  border-radius: 4px;
+    /* 为了更好的视觉效果，可以加上一些内边距 */
+    padding: 8px 12px;
+    /* 为了美观，可以给容器添加背景色和圆角 */
+    background-color: #f0f2f5;
+    border-radius: 4px;
 }
 /* 隐藏滚动条 */
 .Board .BoardText::-webkit-scrollbar{

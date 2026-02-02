@@ -53,9 +53,10 @@ body.night-mode {
     border: 1px solid #b9b8b8;
     cursor: pointer;
 }
-.head .left span{
+.head .left a{
     margin-left: 30px;
     font-size: 25px;
+    text-decoration: none;
 }
 .openwindowbtn{
     /* width: 100px; */
