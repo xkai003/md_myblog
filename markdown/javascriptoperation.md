@@ -312,5 +312,3 @@ console.log(str.trim());  //abcdecac
 </script>
 ```
 ![这是图片](../image/javascriptoperation/javascriptpopup.png "Magic Gardens")
-
-

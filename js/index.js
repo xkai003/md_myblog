@@ -93,7 +93,8 @@ window.addEventListener('resize', function() {
 const mdFiles = [
     'codenotes.md',
     'operationnotes.md',
-    'javascriptoperation.md'
+    'javascriptoperation.md',
+    'vueoperation.md'
     // 新增文件时，在这里添加即可
 ];
 
