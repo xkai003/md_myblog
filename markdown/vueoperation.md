@@ -111,7 +111,7 @@ data:{数据}                    →表示：把数据写在这里
     })
 </script>
 ```
-<span style="color: red;">拓展</span>
+拓展
 ```
 {{ nickname.toUpperCase() }}              →大写
 {{ nickname + '你好'}}                    →拼接字符串
@@ -213,12 +213,14 @@ v-else   v-else-if=”表达式”
         el:'#app',
         data:{
             count:0,
-            isshow:true},
+            isshow:true
+        },
         methods:{
             fn() {
-                this.isshow = !this .isshow}
+                this.isshow = !this .isshow
             }
-        })
+        }
+    })
 </script>
 ```
 <br>
@@ -235,7 +237,8 @@ v-else   v-else-if=”表达式”
     const app = new Vue({
         el:'#app',
         data:{
-            money:100},
+            money:100
+        },
         methods:{
             buy (price) {
                 this.money -= price
@@ -298,7 +301,7 @@ v-bind:class='对象'
 2、数组 <br>
 数组中所有的类，都会添加到盒子上，本质就是一个class列表<br>
 语法：<code>:class='[‘ping' ,'big' ]'</code><br>
-场景：批量添加或删除类
+场景：批量添加或删除类<br>
 示例：
 
 ```
@@ -317,9 +320,9 @@ v-bind:class='对象'
     }
 </style>
 <div id="app">
-        <div class="box" :class="{ pink: true, big:false}">gfsdg</div>
-        <br>
-        <div class="box" v-bind:class="['pink','big']"></div>
+    <div class="box" :class="{ pink: true, big:false}">gfsdg</div>
+    <br>
+    <div class="box" v-bind:class="['pink','big']"></div>
 </div>
 
 ```
@@ -378,11 +381,11 @@ v-model='变量'
         methods:{
             login(){
                 alert(
-'账号:'+this.username  + ','
-+'密码:'+this.password
-)
+                    '账号:'+this.username  + ','
+                    +'密码:'+this.password
+                    )
             },
-// 以下是重置按钮动作
+            // 以下是重置按钮动作
             reset () {
                 this.username = '',
                 this.password = ''
@@ -390,5 +393,22 @@ v-model='变量'
         }
     })
 </script>
+```
+<br>
+
+### 修饰符
+按键修饰符
+```
+@keyup.enter             →键盘回车监听
+```
+v-model修饰符
+```
+v-model.trim             →去除首尾空格
+v-model.number           →转数字
+```
+事件修饰符
+```
+@事件名.stop             →阻止冒泡
+@事件名.prevent          →阻止默认行为
 ```
 
