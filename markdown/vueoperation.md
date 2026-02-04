@@ -331,7 +331,7 @@ v-bind:class='对象'
 ```
 v-for=”"item in 数组”
 ```
-<span style="color: red;">（item表示每一项，index表示下标）</span>
+（item表示每一项，index表示下标）
 <br>
 
 <code>v-for中的key</code><br>
