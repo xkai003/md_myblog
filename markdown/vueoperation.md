@@ -411,4 +411,177 @@ v-model.number           →转数字
 @事件名.stop             →阻止冒泡
 @事件名.prevent          →阻止默认行为
 ```
+<br>
+<hr>
+
+###  计算属性
+概念:基于现有的数据，计算出来的新属性。依赖的数据变化，自动重新计算。<br>
+语法:<br>
+① 声明在 computed 配置项中，一个计算属性对应一个函数<br>
+② 使用起来和普通属性一样使用{{计算属性名 }}<br>
+计算属性 → 可以将一段 求值的代码 进行封装<br>
+```
+computed:{
+    计算属性名(){
+        基于现有数据，编写求值逻辑
+        return 结果
+    }
+}
+```
+举例
+```
+<div id="app" class="box">
+        <h3>小黑的礼物清单</h3>
+        <table>
+            <tr>
+                <td>名字</td>
+                <td>数量(个)</td>
+            </tr>
+            <tr v-for="item in list" :key="item.id"> 
+                <td>{{item.name}}</td>
+                <td>{{item.num}}</td>
+            </tr>
+        </table>    <!-- 共计 -->
+    <p>礼物共计：{{ totalCount }}个</p>
+</div>
+```
+<br>
+
+```
+<script>
+    const app = new Vue({
+        el:'#app',
+        data:{
+            list:[
+                {id: 1,name:'篮球',num:1},
+                {id: 2,name:'排球',num:3},
+                {id: 3,name:'足球',num:5},
+            ]
+        },
+        computed:{
+            totalCount() {
+                let total = this.list.reduce((sum, item)=> sum + item.num, 0)
+                return total
+            }
+        }
+    })
+</script>
+```
+
+### computed 计算属性 vs methods 方法
+computer 计算属性：<br>
+作用：封装了一段对于数据的处理，求得一个结果。<br>
+语法:<br>
+① 写在 computed 配置项中<br>
+② 作为属性，直接使用 → this.计算属性 {{ 计算属性 }}<br>
+
+methods 方法：<br>
+作用：给实例提供一个方法，调用以处理业务逻辑。<br>
+语法:<br>
+① 写在 methods 配置项中<br>
+② 作为属性，需要调用 → this.方法名( ) {{ 方法名( ) }} @事件名=”方法名”<br>
+
+缓存特性(提升性能)：<br>
+计算属性会对计算出来的结果缓存，再次使用直接读取缓存，依赖项变化了，会自动重新计算 →并再次缓存
+
+### watch 侦听器(监视器)
+① 简单写法 → 简单类型数据，直接监视
+```
+watch: {
+    数据属性名 (newValue, oldValue) {
+        一些业务逻辑 或 异步操作
+    },
+    '对象.属性名' (newValue, oldValue) {
+        一些业务逻辑 或 异步操作
+    }
+}
+```
+② 完整写法 → 添加额外配置项
+```
+watch: {                             // watch 完整写法
+    数据属性名: {
+        deep: true,
+        immediate: true,             // 深度监视
+        handler(newValue) {
+            console.log(newValue)    // 是否立即执行一次 handler
+        }
+    }
+}
+```
+
+### vue2脚手架目录文件介绍
+![这是图片](../image/vueoperation/vue2JSJMLWJJS.png "Magic Gardens")
+### vue3脚手架目录文件介绍
+![这是图片](../image/vueoperation/vue3JSJMLWJJS.png "Magic Gardens")
+vue引用img图片的方法
+```
+HTML格式： <img src="./img/京东吉祥物.png" alt="">
+vue格式：<img src="@/assets/images/京东吉祥物.png" alt=""> 
+```
+
+黑马 —— 041(1)：创建项目<br>
+步骤一：复制一份【src】文件出来并把原来的【src】文件命名改掉（因为项目运行的是【src】文件）<br>
+步骤二：完整代码写在【APP.vue】文件里，拆分出来的组件放在【components】文件里面 <br><br>
+黑马 —— 041(2)启动vue项目步骤<br>
+步骤一： cd D:\code\VSCode\练习本\vue\demo\vue-demo1<br>
+步骤二： npm run dev<br>
+停止服务器运行的快捷键：【Ctrl+C】
+<hr>
+
+### 组件通信
+组件通信,就是指 组件与组件 之间的数据传递<br>
+组件的数据是独立的，无法直接访问其他组件的数据。<br>
+想用其他组件的数据 →组件通信<br>
+组件的关系分类<br>
+<img src="../image/vueoperation/ZJDGXFL.png.png " style="width: 80%; height: 300px;"><br>
+组件通信解决方案（Vuex）：<br>
+1、父子关系：props (父传子) 和 $emit (子传父)<br>
+2、非父子关系：provide & inject或evenbus<br>
+prop & data、单向数据流（口诀：谁的数据谁负责）<br>
+共同点:都可以给组件提供数据。<br>
+区别:<br>
+data 的数据是自己的 → 随便改<br>
+prop 的数据是外部的 →不能直接改，要遵循 单向数据流<br>
+单向数据流:父级 prop 的数据更新，会向下流动，影响子组件。这个数据流动是单向的。<br>
+
+#### props (父传子)
+<img src="../image/vueoperation/father-son.png" style="width: 80%; height: 500px;"><br>
+
+#### $emit (子传父)
+<img src="../image/vueoperation/son-father.png " style="width: 80%; height: 500px;"><br>
+
+### 非父子通信(拓展)- event bus 事件总线
+作用：非父子组件之间的数据进行简易信息传递<br>
+步骤1、创建一个能访问到的事件总线（空Vue实例） →utils/EventBus.js
+```
+import Vue from "vue";
+const Bus = new Vue()
+export default Bus
+```
+步骤2、A组件(发送)，触发Bus实例的事件  →components/BaseOne.vue
+```
+import Bus from '../utils/EvenBus.js'    //导入Bus
+export default {
+  methods: {
+        clickSend () {
+               Bus.$emit('sendMsg' , '今天天气真好');
+}
+   },
+}
+```
+步骤3、B组件(接收)  添加 $on 监听事件来监听 Bus 实例的事件  →components/BaseTwo.vue
+```
+created () {
+    //Bus.监听事件('事件名' , (接收回调的消息) => {回调操作})
+    Bus.$on('sendMsg',(msg) => {
+      this.msg = msg
+      console.log(msg)
+    })
+  },
+```
+<img src="../image/vueoperation/FFZGXTX.png" style="width: 80%; height: 500px;"><br>
+
+
+
+
 
