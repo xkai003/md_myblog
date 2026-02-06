@@ -533,7 +533,7 @@ vue格式：<img src="@/assets/images/京东吉祥物.png" alt="">
 组件的数据是独立的，无法直接访问其他组件的数据。<br>
 想用其他组件的数据 →组件通信<br>
 组件的关系分类<br>
-<img src="../image/vueoperation/ZJDGXFL.png.png " style="width: 80%; height: 300px;"><br>
+<img src="../image/vueoperation/ZJDGXFL.png.png "><br>
 组件通信解决方案（Vuex）：<br>
 1、父子关系：props (父传子) 和 $emit (子传父)<br>
 2、非父子关系：provide & inject或evenbus<br>
@@ -545,10 +545,10 @@ prop 的数据是外部的 →不能直接改，要遵循 单向数据流<br>
 单向数据流:父级 prop 的数据更新，会向下流动，影响子组件。这个数据流动是单向的。<br>
 
 #### props (父传子)
-<img src="../image/vueoperation/father-son.png" style="width: 80%; height: 500px;"><br>
+<img src="../image/vueoperation/father-son.png"><br>
 
 #### $emit (子传父)
-<img src="../image/vueoperation/son-father.png " style="width: 80%; height: 500px;"><br>
+<img src="../image/vueoperation/son-father.png "><br>
 
 ### 非父子通信(拓展)- event bus 事件总线
 作用：非父子组件之间的数据进行简易信息传递<br>
@@ -579,7 +579,35 @@ created () {
     })
   },
 ```
-<img src="../image/vueoperation/FFZGXTX.png" style="width: 80%; height: 500px;"><br>
+![这是图片](../image/vueoperation/FFZGXTX.png "Magic Gardens")
+
+###  .sync修饰符
+作用：可以实现子组件与父组件数据的双向绑定，简化代码<br>
+特点：prop属性名，可以自定义，非固定为value<br>
+场景：封装弹框类的基础组件，visible属性 true显示 flase隐藏<br>
+本质：就是 :属性名 和 @update:属性名 合写<br>
+子组件（封装）
+
+```
+<BaseDialog :visible.sync="isShow" />
+-------------------------------------
+<BaseDialog
+    :visible="isShow"
+    @update:visible="isShow = $event"
+/>
+```
+父组件（使用）
+```
+props: {
+    visible: Boolead
+},
+
+this.$emit('update:visible', false)
+```
+效果图<br>
+![这是图片](../image/vueoperation/syncXSF.png "Magic Gardens")
+
+
 
 
 
