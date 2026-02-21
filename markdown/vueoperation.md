@@ -717,6 +717,142 @@ export default {
     </template>
 </MyTable>
 ```
+<br>
+<hr>
+
+### 组件存放问题
+组件有两种分类：<br>
+1、复用组件：放在components文件夹内<br>
+2、页面组件：放在 views 文件夹内
+
+### VueRouter单页应用程序
+特点：只需要引入一次导航。就是所有页面组件都聚集在一个页面中，点击导航只更换组件<br>
+【src/main.js文件中】<br>
+步骤一：下载VueRouter模板到当前工程
+```
+npm add vue-router@3.6.5
+```
+步骤二：三个引入：vue、App、router
+```
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router/index'
+
+Vue.config.productionTip = false
+```
+步骤三：注入，将路由对象注入到new Vue实例中，建立关联
+```
+new Vue({
+  render: h => h(App),
+  router
+}).$mount('#app')
+```
+【src/router/index.js文件中】3个步骤<br>
+步骤一：配置路由出口
+```
+import Find from '@/views/Find'
+import My from '@/views/My'
+```
+步骤二：引入vue、vueRouter、初始化路由插件
+```
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter) 
+```
+步骤三：创建路由对象
+```
+const router = new VueRouter({
+  // route  一条路由规则 { path: 路径, component: 组件 }
+  routes: [
+    { path: '/find', component: Find },
+    { path: '/my', component: My },
+  ]
+})
+export default router
+```
+【src/App.vue文件中】2个步骤<br>
+步骤一：创建导航
+```
+<div class="footer_wrap">
+    <a href="#/find">发现音乐</a>
+    <a href="#/my">我的音乐</a>
+ </div>
+ ```
+步骤二：配置路由出口→ 匹配的组件所展示的位置
+```
+<div>
+    <router-view></router-view>
+</div>
+```
+页面组件代码
+```
+<template>
+    <div>
+        <p>这是Find页</p>
+    </div>
+</template>
+
+<script></script>
+<style></style>
+
+```
+### 使用router-link替代a标签实现导航高亮
+方式一(简单)：
+```
+<div>
+     <!-- 导航高亮
+      步骤一：将a标签换成router-link
+      步骤二：结合高亮类名实现高亮效果(router-link-active 模糊匹配) -->
+      <!-- <a href="#/article">面经</a> -->
+
+      <router-link to="/article">面经</router-link>
+</div>
+<style>
+    // 如果a标签一旦有了router-link-active这个类，就高亮显示
+    a.router-link-active{
+      color: orange;
+    }
+</style>
+```
+方式二：<br>
+![这是图片](../image/vueoperation/router-link.png "Magic Gardens")
+
+### 声明式导航跳转传参
+目标：在跳转路由时，进行传值<br>
+<span style="color: red;">方式一（推荐）：查询参数传参</span><br>
+跳转：to=”/路由名?参数名=参数值”<br>
+获取：```{{ $route.query.参数名 }} ```<br>
+<span style="color: red;">方式二（简洁）：动态路由传参</span><br>
+跳转：to=”/路由名/参数名”<br>
+配置动态路由：path:”/路由名:参数名?”<br>
+获取：```{{ $route.params.参数名 }}```
+![这是图片](../image/vueoperation/SMSDHTZ.png "Magic Gardens")
+
+### 路由重定向和404
+路由重定向语法：``` { path:匹配路径, redirect: 重定向到的路径 ```<br>
+404语法：``` { path:"*", compontent: NotFind }```<br>
+举例：
+```
+const router = new VueRouter({
+    router: [
+        { path:"/", redirect: index },        // 路由重定向
+        { path:"/index", compontent: index }, // 页面路由
+        { path:"*", compontent: NotFind }     // 404路由
+    ]
+})
+```
+### 编程式导航
+步骤一：运用 v-model 双向数据绑定输入框
+步骤二：给搜索按钮添加点击事件
+步骤三：拿到输入的数据并通过动态路由传参的方式传给路由
+步骤四：通过 ```{{ $route.params.参数名 }}``` 获取数据
+![这是图片](../image/vueoperation/image.png "Magic Gardens")
+
+
+
+
+
+
 
 
 
