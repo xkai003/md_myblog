@@ -606,6 +606,117 @@ this.$emit('update:visible', false)
 ```
 效果图<br>
 ![这是图片](../image/vueoperation/syncXSF.png "Magic Gardens")
+<br>
+<hr>
+
+### Vue异步更新、$nextTick
+需求：编辑标题，编辑框自动聚焦<br>
+1、点击编辑，显示编辑框<br>
+2、让编辑框立即自动聚焦<br>
+想要在 DOM 更新完成之后做某件事，可以使用$nextTick<br>
+$refs.inp.focus() 是用来获取页面中的dom元素的，.focus()是获取焦点0
+```
+this.$nextTick(() => {
+//业务逻辑
+}
+```
+
+详细代码如下：
+```
+<template>
+  <div class="app">
+    <div v-if="isShowEdit">
+      <input type="text" v-model="editValue" ref="inp" />
+      <button>确认</button>
+    </div>
+
+    <div v-else>
+      <span>{{ title }}</span>
+      <button @click="editFn">编辑</button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return{
+      title: '唐茂凯',
+      isShowEdit: false,
+      editValue: '',
+    }
+  },
+  methods: {
+    editFn() {
+      this.isShowEdit = true
+      this.$nextTick(() => {
+        console.log(this.$refs.inp)
+        this.$refs.inp.focus()
+      })
+    }
+  }
+}
+</script>
+
+<style></style>
+```
+![这是图片](../image/vueoperation/$nextTick.png "Magic Gardens")
+<br>
+<hr>
+
+### 插槽-默认插槽
+作用：让组件内部的一些结构支持自定义。<br>
+需求：要在页面中显示一个对话框，封装成一个组件<br>
+插槽的基本语法：<br>
+1、组件内需要定制的结构部分，改用```<slot></slot>```占位<br>
+2、使用组件时，```<MyDialog></MyDialog>```标签内部，传如结构替换slot<br>
+
+### 插槽-后备内容（默认值）
+插槽后备内容：封装组件时，可以为预留的```<slot>```插槽提供后备内容（默认内容）。<br>
+效果：<br>
+1、外部使用组件时，不传东西，则slot会显示后备内容<br>
+2、外部使用组件时，传东西了，则slot整体会换掉<br>
+![这是图片](../image/vueoperation/cacao-hbnr.png "Magic Gardens")
+
+### 插槽-具名插槽
+需求：一个组件内有多处结构，需要外部传入标签，进行定制<br>
+步骤：<br>
+1、给插槽起上对应的名字<br>
+2、用v-slot来指定绑定对应的插槽<br>
+![这是图片](../image/vueoperation/cacao-hbnr.png "Magic Gardens")
+
+### 插槽-作用域插槽
+定义slot插槽的同时，是可以传值的。只需要给插槽上绑定<br>数据，将来使用组件时<br>
+场景：封装表格组件<br>
+1、父传子，动态渲染表格内容
+2、利用默认插槽，定制操作列
+3、删除或查看都需要用到当前项的id，属于组件内部的数据通过作用域插槽传值绑定，进而使用
+```
+<MyTable :list="list">
+    <button>删除</button>
+</MyTable>
+
+<MyTable :list="list2">
+    <button>查看</button>
+</MyTable>
+```
+基本使用步骤：
+1、给slot标签，以添加属性的方式传值
+```
+<slot :id="item.id" msg="测试文本"></slot>
+```
+2、所有添加的属性，都会被收集到一个对象中
+```
+{ id:3, msg: '测试文本' }
+```
+3、在template中，通过`#插槽名="obj"`接收，默认插槽名为default
+```
+<MyTable :list="list">
+    <template #default="obj">
+        <button @click="del(obj.id)">删除</button>
+    </template>
+</MyTable>
+```
 
 
 
