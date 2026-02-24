@@ -70,8 +70,19 @@ text-align: justify; →设置文字两端对齐<br>
 text-transform: lowercase; →单词小写<br>
 （uppercase单词大写、capitalize每个单词的首字母大写）<br>
 text-indent: 2em; →首行缩进2各字符<br>
+text-overflow: ellipsis; →超出部分用...代替<br>
 text-shadow: 20px 27px 22px pink; →凹凸文字效果<br>
 （参数解释：水平位移 垂直位移 模糊程度 阴影颜色。）<br>
+```
+.item .desc .Introduction{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 最多显示两行，多余的部分用...代替 */
+    overflow: hidden; /* 隐藏超出的部分 */
+    word-break: break-all;
+    /* text-indent: 2em;  首行缩进2各字符 */
+}
+```
 <hr>
 
 ### 表格标签
