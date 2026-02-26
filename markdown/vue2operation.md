@@ -842,21 +842,149 @@ const router = new VueRouter({
 })
 ```
 ### 编程式导航
-步骤一：运用 v-model 双向数据绑定输入框
-步骤二：给搜索按钮添加点击事件
-步骤三：拿到输入的数据并通过动态路由传参的方式传给路由
-步骤四：通过 ```{{ $route.params.参数名 }}``` 获取数据
-![这是图片](../image/vueoperation/image.png "Magic Gardens")
+步骤一：运用 v-model 双向数据绑定输入框<br>
+步骤二：给搜索按钮添加点击事件<br>
+步骤三：拿到输入的数据并通过动态路由传参的方式传给路由<br>
+步骤四：通过 ```{{ $route.params.参数名 }}``` 获取数据<br>
+![这是图片](../image/vueoperation/BCSSH.png "Magic Gardens")
+<br>
+<hr>
 
+### mutations的基本使用
+目标：掌握mutations的操作流程，来修改 state 数据。（state数据的修改只能通过 mutations）<br>
+步骤一：定义mutations对象，在对象中存放修改state的方法<br>
+步骤二：在组件中提交并调用mutations<br>
+![这是图片](../image/vueoperation/mutationsDJBSY.png "Magic Gardens")
 
+### mutations传递参数
+语法：```this.$store.commit(‘xxx’ , 参数 )```<br>
+步骤一：页面中提交调用mutataion<br>
+步骤二：提供mutation函数<br>
+![这是图片](../image/vueoperation/mutationsCDCS.png "Magic Gardens")<br>
+注意：<br>
+提交参数只能有一个，如果有多个参数，就包装成一个对象来传递
+```
+// 子组件
+this.$store.commit('addCount', {
+    count: 10,
+    ...
+})
+```
+<br>
+```
+// 父组件
+addCount (state, obj) {
+    state.count += obj.count
+}
+```
 
+### 辅助函数-mapMutations
+目标：掌握辅助函数 mapMutations 的映射方法，简化代码<br>
+mapMutations和 mapState很像，它是把位于mutations中的方法提取了出来，映射到组件methods中<br>
+方法很简单，只需要将 handlesub 方法改成 ...mapMutations就可以了，具体示范如下<br>
+![这是图片](../image/vueoperation/FZHSmapMutations.png "Magic Gardens")
 
+### 辅助函数-mapActions
+目标：掌握辅助函数 mapActions 的映射方法<br>
+mapActions  是把位于 actions 中的方法提取出来，映射到组件中的<br>
+![这是图片](../image/vueoperation/FZHSmapActions.png "Magic Gardens")
 
+### getters用法
+目标：掌握核心概念 getters 的基本语法(类似于计算属性)<br>
+说明：除了state之外，有时我们还需要从state中派生出一些状态，这些状态是依赖state的，此时会用到getters<br>
+<br>
+例如：state中定义了list，为1-10的数组，在组件中需要显示所有大于5的数据
+```
+state: {
+    list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+```
+1、定义getters
+```
+getters: {
+    filterList (state) {
+        return state.list.filter(item => item > 5)
+    }
+}
+```
+2、访问getters
+方式一：通过 store 访问 getters
+```
+{{ $store.getters.filterList }}
+```
+方式二：通过辅助函数 magGetters 映射
+```
+computed: {
+    ...mapGetters(['filterList'])
+}
+```
+访问数据
+```
+{{ filterList }}
+```
 
+具体代码如下<br>
+![这是图片](../image/vueoperation/visit_getters.png "Magic Gardens")
 
+### module模块的创建
+模块拆分的步骤：<br>
+步骤一：进入src/store文件夹并新建一个名为modules文件<br>
+步骤二：往modules文件中创建多个小模块文件<br>
+步骤三：往小模块中写入相应的代码<br>
+步骤四：在store/index.js中导入各个小模块<br>
+![这是图片](../image/vueoperation/moduleMK.png "Magic Gardens")
 
+### 掌握模块中 state 的访问语法
+访问模块中数据的方式：<br>
+①直接通过模块名访问 $store.state.模块名.xxx 例如：```{{ $store.state.user.userInfo.name }}```<br>
+②通过 mapState 映射<br>
+默认级别的映射 ```mapState([‘xxx’])```<br>
+子模块的映射 ```mapState( ‘模块名‘, [‘xxx’])``` （前提是得先开启命名空间）<br>
+![这是图片](../image/vueoperation/ZWMKZstateDFWYF.png "Magic Gardens")
 
+### 掌握模块中 getters 的访问语法（父组件 index.js提供方法）
+访问模块中数据的方式：<br>
+①直接通过模块名访问 $store.getters[‘模块名/xxx’] 例如：```<div>{{ $store.getters['user/UpperCaseName'] }}</div>```<br>
+②通过 mapGetters 映射<br>
+默认级别的映射 mapGetters([‘xxx’])<br>
+子模块的映射 mapGetters( ‘模块名‘, [‘xxx’]) （前提是得先开启命名空间）<br>
+![这是图片](../image/vueoperation/ZWMKZgettersDFWYF.png "Magic Gardens")
 
+### 掌握模块中 mutation 的调用语法
+访问模块中数据的方式：<br>
+①直接通过 $store 调用 $store.commit(‘模块名/xxx’,额外参数)<br>
+![这是图片](../image/vueoperation/ZWMKZmutationDYFF.png "Magic Gardens")
 
+### 掌握模块中 action 的调用语法
+访问模块中数据的方式：<br>
+①直接通过模块名访问 $store.dispatch(‘模块名/xxx’, 额外参数)<br>
+②通过 mapState 映射<br>
+默认级别的映射 mapActions([‘xxx’])<br>
+子模块的映射 mapActions( ‘模块名‘, [‘xxx’]) （前提是得先开启命名空间）<br>
+![这是图片](../image/vueoperation/ZWMKZactionDYFF.png "Magic Gardens")
 
+### 基于json-server工具，准备后端接口服务环境
+安装教程：<br>
+步骤一：cd到D:\code\VSCode\practise\vue\vue-cart-demo路径下全局安装json-server
+```
+npm install -g json-server
+```
+（查看是否安装成功命令 npm ls -g --depth=0 。如果看到  json-server@1.0.0-beta.3 类似输出就证明安装成功了）<br>
+步骤二：在根目录vue-cart-demo文件中新建一个名为db文件夹，里面再建一个 index.json 文件用来存数据<br>
+步骤三：在db文件夹中打开powershell窗口后输入以下命令启动服务
+```
+npx json-server --watch index.json
+```
+最后用服务器访问```http://localhost:3000/cart```就可以看到数据了<br>
+![这是图片](../image/vueoperation/json-server.png "Magic Gardens")
 
+### 请求获取数据并存入到vuex里面
+步骤一：cd到D:\code\VSCode\practise\vue\vue-cart-demo路径下全局安装axios
+```
+npm add axios
+```
+步骤二：在store文件夹中新建一个modules文件夹，在modules文件夹中新建一个cart.js文件。在里面写axios请求并间请求到的数据存到list里面<br>
+步骤三：在App.vue中一进页面就发请求，然后通过v-for把拿到的数据渲染到页面组件中<br>
+步骤四：页面组件中post接收数据并渲染到页面中<br>
+![这是图片](../image/vueoperation/QQHQSJBCRDvuexLM1.png "Magic Gardens")
+![这是图片](../image/vueoperation/QQHQSJBCRDvuexLM2.png "Magic Gardens")

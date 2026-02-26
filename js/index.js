@@ -94,7 +94,7 @@ const mdFiles = [
     'codenotes.md',
     'operationnotes.md',
     'javascriptoperation.md',
-    'vueoperation.md'
+    'vue2operation.md'
     // 新增文件时，在这里添加即可
 ];
 
