@@ -102,15 +102,10 @@ const mdFiles = [
 // 2. 定义默认加载的文件（解决 filename 未定义问题）
 const DEFAULT_FILE = mdFiles[0] || '';
 
-// 3. 页面加载时渲染文件列表 + 加载URL中指定的文件（无则加载默认）
+// 3. 页面加载时渲染文件列表 + 加载默认文件
 window.onload = function() {
     renderFileList();
-    // 从URL参数中获取文件名，没有则用默认
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlFile = urlParams.get('file');
-    // 验证URL中的文件是否在预定义列表中，防止非法文件请求
-    const targetFile = mdFiles.includes(urlFile) ? urlFile : DEFAULT_FILE;
-    loadMarkdownFile(targetFile);
+    loadMarkdownFile(DEFAULT_FILE); // 使用默认文件，而非未定义的 filename
 };
 
 // 渲染文件列表
@@ -132,21 +127,9 @@ function renderFileList() {
     listContainer.innerHTML = fileItems;
 }
 
-// 更新URL中的文件名参数（不刷新页面）
-function updateUrlWithFile(filename) {
-    const urlParams = new URLSearchParams();
-    urlParams.set('file', filename);
-    // 使用pushState更新URL，第二个参数为空字符串（兼容各浏览器）
-    history.pushState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
-}
-
 // 加载并渲染指定的 Markdown 文件
 async function loadMarkdownFile(filename) {
     const container = document.getElementById('markdown-container');
-    
-    // 先更新URL
-    updateUrlWithFile(filename);
-    
     try {
         // 拼接文件路径（md 文件夹下）
         const response = await fetch(`./markdown/${filename}`);
@@ -164,11 +147,3 @@ async function loadMarkdownFile(filename) {
         console.error('加载错误:', error);
     }
 }
-
-// 监听浏览器前进/后退事件，同步加载对应文件
-window.addEventListener('popstate', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlFile = urlParams.get('file');
-    const targetFile = mdFiles.includes(urlFile) ? urlFile : DEFAULT_FILE;
-    loadMarkdownFile(targetFile);
-});
