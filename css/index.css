@@ -144,7 +144,7 @@ body.night-mode {
 .box .nav .list::-webkit-scrollbar{
     display: none;
 }
-.box .nav .list a{
+.box .nav .list .file-list-container{
     display: block;
     line-height: 40px;
     font-size: 20px;
@@ -153,6 +153,15 @@ body.night-mode {
     color: black;
     /* background-color: #f3e0e0; */
     /* padding: 0 10px; 新增：内边距 */
+}
+.box .nav .list .file-list-container:hover{
+    cursor: pointer;
+}
+/* 选中状态样式 - 红色字体 */
+.file-item.active,
+.file-item.active .icon{
+    color: red;
+    fill:#f80606
 }
 .file-item{
     font-size: 20px;
@@ -205,9 +214,6 @@ code {
     background-color: #f6f8fa;
     padding: 2px 4px;
     border-radius: 3px;
-}
-.error {
-    color: red;
 }
 
 /* 回到顶部按钮样式 */

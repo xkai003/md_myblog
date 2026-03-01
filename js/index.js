@@ -89,86 +89,106 @@ window.addEventListener('resize', function() {
 });
 
 // ============================阅读Markdown 文件============================
-// 1. 预定义 md 文件夹下的所有 Markdown 文件（手动维护）
-const mdFiles = [
-    'friendlylinks.md',
-    'codenotes.md',
-    'operationnotes.md',
-    'javascriptoperation.md',
-    'vue2operation.md'
-    // 新增文件时，在这里添加即可
-];
+        // 1. 预定义 md 文件夹下的所有 Markdown 文件（手动维护）
+        const mdFiles = [
+            'friendlylinks.md',
+            'codenotes.md',
+            'operationnotes.md',
+            'javascriptoperation.md',
+            'vue2operation.md'
+            // 新增文件时，在这里添加即可
+        ];
 
-// 2. 定义默认加载的文件（解决 filename 未定义问题）
-const DEFAULT_FILE = mdFiles[0] || '';
+        // 2. 定义默认加载的文件（解决 filename 未定义问题）
+        const DEFAULT_FILE = mdFiles[0] || '';
 
-// 3. 页面加载时渲染文件列表 + 加载URL中指定的文件（无则加载默认）
-window.onload = function() {
-    renderFileList();
-    // 从URL参数中获取文件名，没有则用默认
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlFile = urlParams.get('file');
-    // 验证URL中的文件是否在预定义列表中，防止非法文件请求
-    const targetFile = mdFiles.includes(urlFile) ? urlFile : DEFAULT_FILE;
-    loadMarkdownFile(targetFile);
-};
+        // 3. 页面加载时渲染文件列表 + 加载URL中指定的文件（无则加载默认）
+        window.onload = function() {
+            renderFileList();
+            // 从URL参数中获取文件名，没有则用默认
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlFile = urlParams.get('file');
+            // 验证URL中的文件是否在预定义列表中，防止非法文件请求
+            const targetFile = mdFiles.includes(urlFile) ? urlFile : DEFAULT_FILE;
+            loadMarkdownFile(targetFile);
+            // 初始化选中样式
+            setActiveFileItem(targetFile);
+        };
 
-// 渲染文件列表
-function renderFileList() {
-    const listContainer = document.getElementById('file-list-container');
-    if (mdFiles.length === 0) {
-        listContainer.innerHTML = '<p>暂无 Markdown 文件</p>';
-        return;
-    }
+        // 渲染文件列表
+        function renderFileList() {
+            const listContainer = document.getElementById('file-list-container');
+            if (mdFiles.length === 0) {
+                listContainer.innerHTML = '<p>暂无 Markdown 文件</p>';
+                return;
+            }
 
-    // 为每个文件生成可点击的条目
-    const fileItems = mdFiles.map(file => 
-        `<div class="file-item" onclick="loadMarkdownFile('${file}')">
-            <svg t="1769657195785" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10616" width="20" height="20"><path d="M279.272727 558.545455l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM279.272727 698.181818l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM279.272727 139.636364l279.272727 0 0 46.545455-279.272727 0 0-46.545455ZM279.272727 837.818182l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM279.272727 418.909091l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM861.789091 1024c0 0 22.574545 0 22.574545-22.760727L884.363636 204.8 681.239273 0 162.210909 0C162.210909 0 139.636364 0 139.636364 22.760727L139.636364 1001.192727C139.636364 1024 162.210909 1024 162.210909 1024L861.789091 1024zM186.181818 46.545455l465.454545 0 0 139.636364c0 46.545455 46.545455 46.545455 46.545455 46.545455l139.636364 0 0 744.727273L186.181818 977.454545 186.181818 46.545455zM279.272727 279.272727l465.454545 0 0 46.545455-465.454545 0 0-46.545455Z" p-id="10617"></path></svg>
-            ${file}
-        </div>`
-    ).join('');
-    
-    listContainer.innerHTML = fileItems;
-}
-
-// 更新URL中的文件名参数（不刷新页面）
-function updateUrlWithFile(filename) {
-    const urlParams = new URLSearchParams();
-    urlParams.set('file', filename);
-    // 使用pushState更新URL，第二个参数为空字符串（兼容各浏览器）
-    history.pushState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
-}
-
-// 加载并渲染指定的 Markdown 文件
-async function loadMarkdownFile(filename) {
-    const container = document.getElementById('markdown-container');
-    
-    // 先更新URL
-    updateUrlWithFile(filename);
-    
-    try {
-        // 拼接文件路径（md 文件夹下）
-        const response = await fetch(`./markdown/${filename}`);
-        
-        if (!response.ok) {
-            throw new Error(`文件加载失败: ${response.status}`);
+            // 为每个文件生成可点击的条目
+            const fileItems = mdFiles.map(file => 
+                `<div class="file-item" onclick="loadMarkdownFile('${file}')" data-file="${file}">
+                    <svg t="1769657195785" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10616" width="20" height="20"><path d="M279.272727 558.545455l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM279.272727 698.181818l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM279.272727 139.636364l279.272727 0 0 46.545455-279.272727 0 0-46.545455ZM279.272727 837.818182l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM279.272727 418.909091l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM861.789091 1024c0 0 22.574545 0 22.574545-22.760727L884.363636 204.8 681.239273 0 162.210909 0C162.210909 0 139.636364 0 139.636364 22.760727L139.636364 1001.192727C139.636364 1024 162.210909 1024 162.210909 1024L861.789091 1024zM186.181818 46.545455l465.454545 0 0 139.636364c0 46.545455 46.545455 46.545455 46.545455 46.545455l139.636364 0 0 744.727273L186.181818 977.454545 186.181818 46.545455ZM279.272727 279.272727l465.454545 0 0 46.545455-465.454545 0 0-46.545455Z" p-id="10617"></path></svg>
+                    ${file}
+                </div>`
+            ).join('');
+            
+            listContainer.innerHTML = fileItems;
         }
 
-        const markdownText = await response.text();
-        const htmlContent = marked.parse(markdownText);
-        container.innerHTML = htmlContent;
+        // 设置当前选中文件的红色字体样式
+        function setActiveFileItem(filename) {
+            // 移除所有文件条目的active类
+            const allFileItems = document.querySelectorAll('.file-item');
+            allFileItems.forEach(item => {
+                item.classList.remove('active');
+            });
 
-    } catch (error) {
-        container.innerHTML = `<p class="error">加载 ${filename} 失败: ${error.message}</p>`;
-        console.error('加载错误:', error);
-    }
-}
+            // 给当前文件条目添加active类
+            const activeItem = document.querySelector(`.file-item[data-file="${filename}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        }
 
-// 监听浏览器前进/后退事件，同步加载对应文件
-window.addEventListener('popstate', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlFile = urlParams.get('file');
-    const targetFile = mdFiles.includes(urlFile) ? urlFile : DEFAULT_FILE;
-    loadMarkdownFile(targetFile);
-});
+        // 更新URL中的文件名参数（不刷新页面）
+        function updateUrlWithFile(filename) {
+            const urlParams = new URLSearchParams();
+            urlParams.set('file', filename);
+            // 使用pushState更新URL，第二个参数为空字符串（兼容各浏览器）
+            history.pushState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        }
+
+        // 加载并渲染指定的 Markdown 文件
+        async function loadMarkdownFile(filename) {
+            const container = document.getElementById('markdown-container');
+            
+            // 1. 更新URL
+            updateUrlWithFile(filename);
+            // 2. 设置选中样式（红色字体）
+            setActiveFileItem(filename);
+            
+            try {
+                // 拼接文件路径（md 文件夹下）
+                const response = await fetch(`./markdown/${filename}`);
+                
+                if (!response.ok) {
+                    throw new Error(`文件加载失败: ${response.status}`);
+                }
+
+                const markdownText = await response.text();
+                const htmlContent = marked.parse(markdownText);
+                container.innerHTML = htmlContent;
+
+            } catch (error) {
+                container.innerHTML = `<p class="error">加载 ${filename} 失败: ${error.message}</p>`;
+                console.error('加载错误:', error);
+            }
+        }
+
+        // 监听浏览器前进/后退事件，同步加载对应文件并更新选中样式
+        window.addEventListener('popstate', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlFile = urlParams.get('file');
+            const targetFile = mdFiles.includes(urlFile) ? urlFile : DEFAULT_FILE;
+            loadMarkdownFile(targetFile);
+            setActiveFileItem(targetFile);
+        });
