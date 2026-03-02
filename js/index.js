@@ -91,16 +91,16 @@ window.addEventListener('resize', function() {
 // ============================阅读Markdown 文件============================
         // 1. 预定义 md 文件夹下的所有 Markdown 文件（手动维护）
         const mdFiles = [
-            'friendlylinks.md',
-            'codenotes.md',
-            'operationnotes.md',
-            'javascriptoperation.md',
-            'vue2operation.md'
+            'friendlylinks',
+            'codenotes',
+            'operationnotes',
+            'javascriptoperation',
+            'vue2operation'
             // 新增文件时，在这里添加即可
         ];
 
-        // 2. 定义默认加载的文件（解决 filename 未定义问题）
-        const DEFAULT_FILE = mdFiles[0] || '';
+        // 2. 定义默认加载的文件（解决 filename 未定义问题）mdFiles[0]+'.md'
+        const DEFAULT_FILE = mdFiles[0]+'.md' || '';
 
         // 3. 页面加载时渲染文件列表 + 加载URL中指定的文件（无则加载默认）
         window.onload = function() {
@@ -125,7 +125,8 @@ window.addEventListener('resize', function() {
 
             // 为每个文件生成可点击的条目
             const fileItems = mdFiles.map(file => 
-                `<div class="file-item" onclick="loadMarkdownFile('${file}')" data-file="${file}">
+                // ${file+'.md'}
+                `<div class="file-item" onclick="loadMarkdownFile('${file+'.md'}')" data-file="${file}">
                     <svg t="1769657195785" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10616" width="20" height="20"><path d="M279.272727 558.545455l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM279.272727 698.181818l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM279.272727 139.636364l279.272727 0 0 46.545455-279.272727 0 0-46.545455ZM279.272727 837.818182l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM279.272727 418.909091l465.454545 0 0 46.545455-465.454545 0 0-46.545455ZM861.789091 1024c0 0 22.574545 0 22.574545-22.760727L884.363636 204.8 681.239273 0 162.210909 0C162.210909 0 139.636364 0 139.636364 22.760727L139.636364 1001.192727C139.636364 1024 162.210909 1024 162.210909 1024L861.789091 1024zM186.181818 46.545455l465.454545 0 0 139.636364c0 46.545455 46.545455 46.545455 46.545455 46.545455l139.636364 0 0 744.727273L186.181818 977.454545 186.181818 46.545455ZM279.272727 279.272727l465.454545 0 0 46.545455-465.454545 0 0-46.545455Z" p-id="10617"></path></svg>
                     ${file}
                 </div>`
