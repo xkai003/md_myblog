@@ -95,7 +95,8 @@ window.addEventListener('resize', function() {
             'codenotes',
             'operationnotes',
             'javascriptoperation',
-            'vue2operation'
+            'vue2operation',
+            'Computer_Level1'
             // 新增文件时，在这里添加即可
         ];
 
