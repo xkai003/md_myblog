@@ -96,7 +96,8 @@ window.addEventListener('resize', function() {
             'operationnotes',
             'javascriptoperation',
             'vue2operation',
-            'Computer_Level1'
+            'Computer_Level1',
+            'GistDataEditor'
             // 新增文件时，在这里添加即可
         ];
 
