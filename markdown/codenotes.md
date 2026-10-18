@@ -19,6 +19,15 @@ overline 上划线<br><br>
 <br>)<br>
 <hr>
 
+### 图片懒加载模式
+作用：设置图片懒加载，只有图片滚动快进入屏幕才会请求。减少请求时间
+操作：只需要给 img 标签加上原生 `loading="lazy"`，浏览器自带懒加载，**只有图片滚动快要进入屏幕才会请求**，不用写复杂 JS
+```
+<img :src="item.image" loading="lazy" alt="封面" width="400" height="300">
+```
+建议固定 width、height，防止图片加载时页面跳动。
+<hr>
+
 ### 列表标签
 ```
 无序列表：<ol></ol>
