@@ -112,7 +112,8 @@ const mdFiles = [
     'javascriptoperation',
     'vue2operation',
     'Computer_Level1',
-    'GistDataEditor'
+    'GistDataEditor',
+    '拼多多运营笔记'
 ];
 const DEFAULT_FILE = mdFiles[0]+'.md' || '';
 
