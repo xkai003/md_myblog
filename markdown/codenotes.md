@@ -15,6 +15,8 @@ overline 上划线<br><br>
 &ensp;cursor:pointer; 变成小手<br>
 &ensp;cursor:text; 变成光标<br>
 &ensp;cursor:move; 变成四角箭头<br>
+&ensp;cursor:zoom-in; 鼠标变成放大镜<br>
+&ensp;cursor: zoom-out; 鼠标变成缩小镜<br>
 &ensp;cursor:default; 变成小白
 <br>)<br>
 <hr>

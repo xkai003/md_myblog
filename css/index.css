@@ -1,16 +1,47 @@
-*{
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* 新增：统一盒模型 */
+    box-sizing: border-box;
+    /* 新增：统一盒模型 */
 }
+
+body.night {
+    background-color: #1a1a1a;
+    color: #eeeeee;
+}
+
+.imgModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.imgModal img {
+    max‑width: 90%;
+    max‑height: 90%;
+    object‑fit: contain;
+}
+img:hover{
+    cursor:zoom-in;/* 鼠标停留时鼠标变成放大镜 */
+}
+
 /* body {
     overflow-x: hidden; 防止移动端横向滚动
 } */
 body {
-    overflow-x: hidden; /* 防止移动端横向滚动 */
-    background-color: #ffffff; /* 白天背景 */
-    color: #333333; /* 白天文字 */
-    transition: all 0.3s ease; /* 全局过渡动画 */
+    overflow-x: hidden;
+    /* 防止移动端横向滚动 */
+    background-color: #ffffff;
+    /* 白天背景 */
+    color: #333333;
+    /* 白天文字 */
+    transition: all 0.3s ease;
+    /* 全局过渡动画 */
     min-height: 100vh;
     padding: 20px;
     font-family: Arial, sans-serif;
@@ -21,16 +52,21 @@ body {
 
 /* 夜间模式样式 */
 body.night-mode {
-    background-color: #1a1a1a; /* 夜晚背景 */
-    color: #f0f0f0; /* 夜晚文字 */
+    background-color: #1a1a1a;
+    /* 夜晚背景 */
+    color: #f0f0f0;
+    /* 夜晚文字 */
 }
-.box{
+
+.box {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* 新增：让容器占满视口高度 */
+    min-height: 100vh;
+    /* 新增：让容器占满视口高度 */
 }
+
 /* ============================================================= */
-.head{
+.head {
     width: 100%;
     height: 60px;
     padding: 10px 30px;
@@ -41,78 +77,94 @@ body.night-mode {
     display: flex;
     justify-content: space-between;
 }
-.head .left button{
+
+.head .left button {
     background-color: #fff;
     padding: 5px 8px;
     font-size: 20px;
     border: 1px solid #b9b8b8;
 }
-.head .left button:hover{
+
+.head .left button:hover {
     border: none;
     background-color: #e2e0e0;
     border: 1px solid #b9b8b8;
     cursor: pointer;
 }
-.head .left a{
+
+.head .left a {
     margin-left: 30px;
     font-size: 25px;
     text-decoration: none;
 }
-.openwindowbtn{
+
+.openwindowbtn {
     /* width: 100px; */
     /* height: 30px; */
-    position: fixed; /* 固定按钮位置 */
+    position: fixed;
+    /* 固定按钮位置 */
     top: 10px;
     left: 10px;
-    z-index: 1001; /* 确保按钮在最上层 */
+    z-index: 1001;
+    /* 确保按钮在最上层 */
     border: none;
     border-radius: 4px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.openwindowbtn:hover{
+
+.openwindowbtn:hover {
     cursor: pointer;
     background-color: #f3c6c6;
 }
+
 /* 白天/夜晚 模式切换 */
-.head .right button{
+.head .right button {
     width: 35px;
     height: 35px;
     border-radius: 50%;
     border: 1px solid #b9b8b8;
 }
-.head .right button:hover{
+
+.head .right button:hover {
     cursor: pointer;
     background-color: #fff;
     border: 1px solid #b9b8b8;
 }
+
 /* ============================================================= */
-.box .nav{
-    height: 100vh; /* 修改：使用vh单位更稳定 */
+.box .nav {
+    height: 100vh;
+    /* 修改：使用vh单位更稳定 */
     width: 230px;
     position: fixed;
     top: 60px;
     left: 0;
     background-color: #fff;
     border-right: 1px solid #b9b8b8;
-    z-index: 1000; /* 确保导航栏在内容上层 */
-    transition: transform 0.3s ease; /* 新增：平滑过渡效果 */
+    z-index: 1000;
+    /* 确保导航栏在内容上层 */
+    transition: transform 0.3s ease;
+    /* 新增：平滑过渡效果 */
 }
-.box .nav .title{
+
+.box .nav .title {
     padding: 8px;
     text-align: center;
     background-color: #f8f8f8;
     /* border-top: 1px solid #fff; */
     /* border-bottom: 1px solid #b9b8b8; */
 }
-.box .nav .title .inputbox{
+
+.box .nav .title .inputbox {
     width: 100%;
     margin: 10px 0px;
     border-radius: 15px;
     border: 1px solid #b9b8b8;
     background-color: #fff;
 }
-.box .nav .title .inputbox input{
+
+.box .nav .title .inputbox input {
     height: 30px;
     width: 75%;
     margin: 0;
@@ -120,7 +172,8 @@ body.night-mode {
     border: 0;
     border-radius: 15px;
 }
-.box .nav .title .inputbox button{
+
+.box .nav .title .inputbox button {
     height: 30px;
     width: 20%;
     margin: 0;
@@ -130,21 +183,27 @@ body.night-mode {
     border-radius: 15px;
     background-color: #fff;
 }
+
 .box .nav .title button:hover {
     color: red;
     cursor: pointer;
 }
-.box .nav .title span{
+
+.box .nav .title span {
     font-size: 20px;
 }
-.box .nav .list{
-    max-height: calc(100vh - 50px); /* 修改：减去标题栏高度 */
+
+.box .nav .list {
+    max-height: calc(100vh - 50px);
+    /* 修改：减去标题栏高度 */
     overflow-y: auto;
 }
-.box .nav .list::-webkit-scrollbar{
+
+.box .nav .list::-webkit-scrollbar {
     display: none;
 }
-.box .nav .list .file-list-container{
+
+.box .nav .list .file-list-container {
     display: block;
     line-height: 40px;
     font-size: 20px;
@@ -154,62 +213,77 @@ body.night-mode {
     /* background-color: #f3e0e0; */
     /* padding: 0 10px; 新增：内边距 */
 }
-.box .nav .list .file-list-container:hover{
+
+.box .nav .list .file-list-container:hover {
     cursor: pointer;
 }
+
 /* 选中状态样式 - 红色字体 */
 .file-item.active,
-.file-item.active .icon{
+.file-item.active .icon {
     color: red;
-    fill:#f80606
+    fill: #f80606
 }
-.file-item{
+
+.file-item {
     font-size: 20px;
     padding-left: 10px;
     /* overflow: hidden; */
-    overflow-x: auto; /*水平滑动条*/
-    white-space: nowrap; /*禁止换行*/
+    overflow-x: auto;
+    /*水平滑动条*/
+    white-space: nowrap;
+    /*禁止换行*/
     /* background-color: #f3e0e0; */
     border-bottom: 1px solid #eeeded;
 }
+
 /* 隐藏滚动条 */
-.file-item::-webkit-scrollbar{
-  display: none;
+.file-item::-webkit-scrollbar {
+    display: none;
 }
 
 .file-item:hover {
-    color:red;
+    color: red;
     border-bottom: 1px solid #e9e9e9;
     /* background-color: #cff3f8; */
 }
-.file-item:hover .icon{
-    fill:#f80606
+
+.file-item:hover .icon {
+    fill: #f80606
 }
+
 /* markdown-content */
 .markdown-content {
     /* background-color: #bdfabb; */
     width: 100%;
-    padding: 0px  20px;
+    padding: 0px 20px;
     font-size: 16px;
 }
-.markdown-content img{
+
+.markdown-content img {
     width: 90%;
     height: 600px;
     /* border: 1px solid red; */
 }
-h1, h2, h3 {
+
+h1,
+h2,
+h3 {
     margin-top: 24px;
     margin-bottom: 16px;
 }
+
 p {
     margin-bottom: 16px;
 }
+
 pre {
     background-color: #f6f8fa;
     padding: 16px;
     border-radius: 6px;
     overflow-x: auto;
 }
+
 code {
     background-color: #f6f8fa;
     padding: 2px 4px;
@@ -221,13 +295,15 @@ code {
     position: fixed;
     bottom: 100px;
     right: 30px;
-    display: none; /* 默认隐藏 */
+    display: none;
+    /* 默认隐藏 */
     color: white;
     background-color: rgba(0, 0, 0, 0);
     border: none;
     border-radius: 25%;
     cursor: pointer;
 }
+
 #backToTop:hover {
     background-color: #c8f2f8;
 }
@@ -236,30 +312,43 @@ code {
 /* PC端 (屏幕宽度 > 768px) */
 @media (min-width: 769px) {
     .openwindowbtn {
-        display: none; /* 隐藏导航按钮 */
+        display: none;
+        /* 隐藏导航按钮 */
     }
+
     .nav {
-        transform: translateX(0); /* 显示导航栏 */
+        transform: translateX(0);
+        /* 显示导航栏 */
     }
+
     .markdown-content {
         margin-top: 60px;
-        margin-left: 230px; /*给导航栏留出空间*/
+        margin-left: 230px;
+        /*给导航栏留出空间*/
     }
 }
 
 /* 手机端 (屏幕宽度 ≤ 768px) */
 @media (max-width: 768px) {
     .openwindowbtn {
-        display: block; /* 显示导航按钮 */
+        display: block;
+        /* 显示导航按钮 */
     }
+
     .nav {
-        transform: translateX(-100%); /* 隐藏导航栏（向左移出屏幕） */
+        transform: translateX(-100%);
+        /* 隐藏导航栏（向左移出屏幕） */
     }
+
     .nav.show {
-        transform: translateX(0); /* 显示导航栏 */
+        transform: translateX(0);
+        /* 显示导航栏 */
     }
+
     .markdown-content {
-        margin-left: 0; /* 内容占满宽度 */
-        padding-top: 50px; /* 给按钮留出空间 */
+        margin-left: 0;
+        /* 内容占满宽度 */
+        padding-top: 50px;
+        /* 给按钮留出空间 */
     }
 }
